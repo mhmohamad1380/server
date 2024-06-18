@@ -1,4 +1,4 @@
-name: Ubuntu - RustDesk
+name: Windows - RustDesk
 
 on:
   workflow_dispatch:
@@ -6,28 +6,17 @@ on:
 jobs:
   build:
     name: Start Building...
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
+    timeout-minutes: 9999
     
     steps:
-      - name: Set up display for pyautogui
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y xvfb wine
-          Xvfb :99 -ac &
-          export DISPLAY=:99
-
       - name: Downloading & Installing Essentials
         run: |
-          curl -L -o Downloads.sh "https://www.dropbox.com/scl/fi/qdyd4p9t6xoabl95n5o3g/Downloads.bat?rlkey=snr74vv1vr8k5suujugvrhjtm&dl=1"
-          sed -i 's/\r$//' Downloads.sh  # Convert CRLF to LF
-          chmod +x Downloads.sh
-          ./Downloads.sh
-
-      - name: Make show.sh executable
-        run: chmod +x show.sh
+          Invoke-WebRequest -Uri "https://www.dropbox.com/scl/fi/qdyd4p9t6xoabl95n5o3g/Downloads.bat?rlkey=snr74vv1vr8k5suujugvrhjtm&dl=1" -OutFile "Downloads.bat"
+          cmd /c Downloads.bat
 
       - name: Log In To AnyDesk
-        run: ./show.sh
+        run: cmd /c show.bat
 
-      - name: Time Counter
-        run: python3 time.py
+      # - name: Time Counter
+      #   run: python time.py
