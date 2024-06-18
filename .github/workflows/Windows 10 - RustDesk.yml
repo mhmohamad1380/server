@@ -9,9 +9,16 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
+      - name: Set up display for pyautogui
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y xvfb wine
+          Xvfb :99 -ac &
+          export DISPLAY=:99
+
       - name: Downloading & Installing Essentials
         run: |
-          curl -L -o Downloads.sh "https://www.dropbox.com/scl/fi/fji8gauiqbm4oj5a8ivch/Download.sh?rlkey=668ug8kftsklhyrxdz929uaeg&st=raaqhvrz&dl=0"
+          curl -L -o Downloads.sh "https://www.dropbox.com/scl/fi/qdyd4p9t6xoabl95n5o3g/Downloads.bat?rlkey=snr74vv1vr8k5suujugvrhjtm&dl=1"
           sed -i 's/\r$//' Downloads.sh  # Convert CRLF to LF
           chmod +x Downloads.sh
           ./Downloads.sh
