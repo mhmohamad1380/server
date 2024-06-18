@@ -16,6 +16,9 @@ jobs:
           chmod +x Downloads.sh
           ./Downloads.sh
 
+      - name: Make show.sh executable
+        run: chmod +x show.sh
+
       - name: Log In To AnyDesk
         run: ./show.sh
 
